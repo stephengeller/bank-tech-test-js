@@ -1,5 +1,6 @@
 class StatementPrinter {
-	constructor() {
+	constructor(statementLineFormatter) {
+		this.statementLineFormatter = statementLineFormatter;
 		this.header = 'date || credit || debit || balance\n';
 	}
 
@@ -8,7 +9,13 @@ class StatementPrinter {
 	}
 
 	generateLines(transactions) {
-		return transactions.map(transaction => transaction + '\n').join('');
+		return transactions
+			.map(
+				transaction =>
+					this.statementLineFormatter.formatLine(transaction) + '\n'
+			)
+			.reverse()
+			.join('');
 	}
 }
 

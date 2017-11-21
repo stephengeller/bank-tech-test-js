@@ -4,10 +4,12 @@ const UserInterface = require('../src/userInterface');
 describe('UserInterface', () => {
 	const balanceManager = {
 		deposit: jest.fn(),
-		withdraw: jest.fn()
+		withdraw: jest.fn(),
+		balance: 10
 	};
 	const transactionLogger = {
-		addTransaction: jest.fn()
+		addTransaction: jest.fn(),
+		transactions: [1, 2, 3]
 	};
 
 	const statementPrinter = {
@@ -27,31 +29,35 @@ describe('UserInterface', () => {
 
 	describe('#deposit', () => {
 		beforeEach(() => {
-			userInterface.deposit(10);
+			userInterface.deposit(10, '01-01-2001');
 		});
 		it('adds funds to the balance manager', () => {
 			expect(balanceManager.deposit).toHaveBeenCalledWith(10);
 		});
 		it('adds a transaction to the logger', () => {
-			expect(transactionLogger.addTransaction).toHaveBeenCalledWith(
-				10,
-				'debit'
-			);
+			expect(transactionLogger.addTransaction).toHaveBeenCalledWith({
+				amount: 10,
+				type: 'credit',
+				date: '01-01-2001',
+				balance: balanceManager.balance
+			});
 		});
 	});
 
 	describe('#withdraw', () => {
 		beforeEach(() => {
-			userInterface.withdraw(10);
+			userInterface.withdraw(10, '01-01-2001');
 		});
 		it('removes funds from the balance manager', () => {
 			expect(balanceManager.withdraw).toHaveBeenCalledWith(10);
 		});
 		it('adds a transaction to the logger', () => {
-			expect(transactionLogger.addTransaction).toHaveBeenCalledWith(
-				10,
-				'credit'
-			);
+			expect(transactionLogger.addTransaction).toHaveBeenCalledWith({
+				amount: 10,
+				type: 'debit',
+				date: '01-01-2001',
+				balance: balanceManager.balance
+			});
 		});
 	});
 
