@@ -15,7 +15,9 @@ class UserInterface {
 	}
 
 	printStatement() {
-		this.statementPrinter.printStatement(this.transactionLogger.transactions);
+		return this.statementPrinter.generateStatement(
+			this.transactionLogger.transactions
+		);
 	}
 }
 
