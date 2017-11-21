@@ -1,5 +1,14 @@
+const BalanceManager = require('./balanceManager');
+const TransactionLogger = require('./transactionLogger');
+const StatementPrinter = require('./StatementPrinter');
+const StatementLineFormatter = require('./StatementLineFormatter');
+
 class UserInterface {
-	constructor(balanceManager, transactionLogger, statementPrinter) {
+	constructor(
+		balanceManager = new BalanceManager(),
+		transactionLogger = new TransactionLogger(),
+		statementPrinter = new StatementPrinter(new StatementLineFormatter())
+	) {
 		this.balanceManager = balanceManager;
 		this.transactionLogger = transactionLogger;
 		this.statementPrinter = statementPrinter;
@@ -25,9 +34,11 @@ class UserInterface {
 	}
 
 	printStatement() {
-		return this.statementPrinter.generateStatement(
+		const statement = this.statementPrinter.generateStatement(
 			this.transactionLogger.transactions
 		);
+		console.log(statement);
+		return statement;
 	}
 }
 

@@ -2,6 +2,7 @@
 const UserInterface = require('../src/userInterface');
 
 describe('UserInterface', () => {
+	let userInterface;
 	const balanceManager = {
 		deposit: jest.fn(),
 		withdraw: jest.fn(),

@@ -6,12 +6,7 @@ const UserInterface = require('../src/userInterface');
 
 describe('feature', () => {
 	it('prints out a nice bank statement', () => {
-		const userInterface = new UserInterface(
-			new BalanceManager(),
-			new TransactionLogger(),
-			new StatementPrinter(new StatementLineFormatter())
-		);
-
+		const userInterface = new UserInterface();
 		userInterface.deposit(1000, '10/01/2012');
 		userInterface.deposit(2000, '13/01/2012');
 		userInterface.withdraw(500, '14/01/2012');
