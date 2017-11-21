@@ -1,11 +1,11 @@
 class TransactionLogger {
-	constructor() {
-		this.transactions = [];
-	}
+  constructor() {
+    this.transactions = [];
+  }
 
-	addTransaction(transaction) {
-		this.transactions.push(transaction);
-	}
+  addTransaction(transaction) {
+    this.transactions.push(transaction);
+  }
 }
 
 module.exports = TransactionLogger;
